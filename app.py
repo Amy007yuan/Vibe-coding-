@@ -42,7 +42,7 @@ def analyze_report(text, question):
     用户问题：{question}
     """
     
-    response = client.chat.completions(
+    response = client.chat.completions.create(
         model="deepseek-chat",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.1
