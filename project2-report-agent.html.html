@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI财报智能分析Agent | Vibe Coding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .typing {
+            overflow: hidden;
+            border-right: 2px solid #3b82f6;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #3b82f6 }
+        }
+
+        .upload-active {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-5xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">AI财报智能分析Agent</h1>
+            <a href="index.html" class="text-blue-600 hover:text-blue-800 transition-colors">
+                <i class="fa fa-arrow-left mr-2"></i> 返回作品集
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- 左侧：上传区域 -->
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-xl font-bold mb-6 text-gray-800">上传财报</h3>
+                
+                <div id="dropArea" class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center mb-6 cursor-pointer">
+                    <i class="fa fa-file-text text-5xl text-blue-500 mb-4"></i>
+                    <p class="text-gray-600 mb-4">点击或拖拽PDF文件到此处上传</p>
+                    <button id="uploadBtn" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                        选择PDF文件
+                    </button>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold mb-2 text-gray-700">示例财报（点击加载）</h4>
+                    <div class="space-y-2">
+                        <button class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-blue-100 transition-colors" onclick="loadExample(1)">
+                            贵州茅台2025年年度报告.pdf
+                        </button>
+                        <button class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-blue-100 transition-colors" onclick="loadExample(2)">
+                            腾讯控股2025年年度报告.pdf
+                        </button>
+                        <button class="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-blue-100 transition-colors" onclick="loadExample(3)">
+                            宁德时代2025年年度报告.pdf
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-2 text-gray-700">向AI提问</h4>
+                    <div class="relative">
+                        <input 
+                            id="questionInput"
+                            type="text" 
+                            placeholder="输入你的问题，如：分析一下这家公司的盈利能力"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                        <button id="sendBtn" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            发送
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧：分析结果 -->
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-xl font-bold mb-6 text-gray-800">分析结果</h3>
+                
+                <div id="resultContainer">
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <h4 class="font-semibold mb-2 text-gray-700">📊 核心财务指标摘要</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-gray-600 text-sm">营业收入</p>
+                                <p class="text-xl font-bold">1,245.67亿元</p>
+                                <p class="text-green-600 text-sm">+15.32% YoY</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">净利润</p>
+                                <p class="text-xl font-bold">567.89亿元</p>
+                                <p class="text-green-600 text-sm">+18.76% YoY</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">毛利率</p>
+                                <p class="text-xl font-bold">91.23%</p>
+                                <p class="text-green-600 text-sm">+0.45pp</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">ROE</p>
+                                <p class="text-xl font-bold">32.45%</p>
+                                <p class="text-green-600 text-sm">+1.23pp</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <h4 class="font-semibold mb-2 text-gray-700">🔍 关键发现</h4>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• 营收和净利润均保持双位数增长，业绩表现强劲</li>
+                            <li>• 毛利率维持在90%以上的高位，盈利能力极强</li>
+                            <li>• 经营活动现金流净额623.45亿元，现金流状况良好</li>
+                            <li>• 拟每10股派发现金红利259.11元，分红比例保持稳定</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h4 class="font-semibold mb-2 text-gray-700">⚠️ 风险提示</h4>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• 宏观经济波动可能影响高端消费需求</li>
+                            <li>• 行业竞争加剧，市场份额存在波动风险</li>
+                            <li>• 原材料价格上涨可能对成本造成一定压力</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="aiReply" class="mt-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500 hidden">
+                    <h4 class="font-semibold text-blue-800 mb-2">AI 回复</h4>
+                    <p id="replyText" class="text-gray-700 typing"></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center text-gray-500">
+            <p>技术栈：Python + DeepSeek API + RAG + Streamlit</p>
+        </div>
+    </div>
+
+    <script>
+        // 上传区域交互
+        const dropArea = document.getElementById('dropArea');
+        const uploadBtn = document.getElementById('uploadBtn');
+        
+        uploadBtn.addEventListener('click', () => {
+            alert('已选择PDF文件，正在解析...（演示模式）');
+        });
+        
+        // 拖拽效果 - 修复语法错误：去掉多余的单引号
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight() {
+            dropArea.classList.add('upload-active');
+        }
+        
+        function unhighlight() {
+            dropArea.classList.remove('upload-active');
+        }
+        
+        dropArea.addEventListener('drop', dropHandle, false);
+        
+        function dropHandle(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            alert('已上传 ' + files.length + ' 个PDF文件，解析中...（演示模式）');
+        }
+
+        // 加载示例财报
+        function loadExample(type) {
+            let name = "";
+            if(type === 1) name = "贵州茅台";
+            if(type === 2) name = "腾讯控股";
+            if(type === 3) name = "宁德时代";
+            alert("已加载：" + name + " 2025年年度报告\nAI正在分析中...（演示模式）");
+        }
+
+        // 提问功能
+        const sendBtn = document.getElementById('sendBtn');
+        const questionInput = document.getElementById('questionInput');
+        const aiReply = document.getElementById('aiReply');
+        const replyText = document.getElementById('replyText');
+
+        sendBtn.addEventListener('click', sendQuestion);
+        questionInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') sendQuestion();
+        });
+
+        function sendQuestion() {
+            const q = questionInput.value.trim();
+            if(q === '') {
+                alert('请输入你的问题');
+                return;
+            }
+
+            aiReply.classList.remove('hidden');
+            replyText.textContent = "正在分析你的问题...\n\n基于财报数据：" + q + "\n\n我已完成关键指标提取与风险点识别，可继续为你深度解读。";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融AI产品 | Vibe Coding作品集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#3b82f6',
+                        accent: '#60a5fa',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .bg-gradient-finance {
+                background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+        }
+    </style>
+</head>
+<body class="scroll-smooth bg-gray-50 text-gray-800 font-sans">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-gradient bg-gradient-to-r from-primary to-secondary">
+                金融AI产品作品集
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="hover:text-primary transition-colors">关于我</a>
+                <a href="#projects" class="hover:text-primary transition-colors">项目作品</a>
+                <a href="#skills" class="hover:text-primary transition-colors">核心能力</a>
+                <a href="#contact" class="hover:text-primary transition-colors">联系我</a>
+            </div>
+            <button class="md:hidden text-gray-600" id="menuBtn">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div class="md:hidden hidden bg-white w-full" id="mobileMenu">
+            <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+                <a href="#about" class="hover:text-primary transition-colors">关于我</a>
+                <a href="#projects" class="hover:text-primary transition-colors">项目作品</a>
+                <a href="#skills" class="hover:text-primary transition-colors">核心能力</a>
+                <a href="#contact" class="hover:text-primary transition-colors">联系我</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区 -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-32 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                用代码连接
+                <span class="text-gradient bg-gradient-to-r from-primary to-secondary">金融与AI</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto">
+                擅长Vibe Coding开发模式，依托AI辅助快速落地金融场景轻量应用，懂业务、会技术、能落地
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#projects" class="bg-gradient-finance text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition-opacity shadow-lg">
+                    查看项目作品
+                </a>
+                <a href="https://github.com/yourusername" target="_blank" class="bg-white text-gray-800 px-8 py-3 rounded-full font-medium border border-gray-200 hover:border-primary transition-colors shadow-md">
+                    <i class="fa fa-github mr-2"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">关于我</h2>
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    你好，我是<span class="font-semibold">袁静雯</span>，一名专注于金融AI领域的产品实习生。我具备扎实的金融背景和较强的技术能力，能够快速理解金融业务需求，并通过AI工具将其转化为可落地的产品。
+                </p>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    我熟练掌握<span class="font-semibold">Vibe Coding</span>开发模式：先深入理解业务痛点，再通过AI辅助快速实现原型，用最少的代码验证产品价值，大幅缩短产品迭代周期。
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    我对大语言模型应用、RAG技术、Agent工作流编排有深入的研究和实践经验，能够独立完成从需求调研到产品上线的全流程开发。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目作品 -->
+    <section id="projects" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">精选项目</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- 项目一：金融市场情绪仪表盘 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md card-hover">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
+                        <i class="fa fa-line-chart text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">金融市场情绪仪表盘</h3>
+                        <p class="text-gray-600 mb-4">实时展示大盘走势、行业涨跌、北向资金流向等核心指标，将投研人员每日市场跟踪时间从30分钟缩短至5分钟。</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">HTML</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">JavaScript</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">ECharts</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://your-dashboard.vercel.app" target="_blank" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                                在线演示 <i class="fa fa-external-link ml-2"></i>
+                            </a>
+                            <a href="https://github.com/yourusername/finance-dashboard" target="_blank" class="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                                查看代码 <i class="fa fa-github ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目二：AI财报智能分析Agent -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md card-hover">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center">
+                        <i class="fa fa-file-text text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AI财报智能分析Agent</h3>
+                        <p class="text-gray-600 mb-4">基于RAG技术开发，自动解析PDF财报，提取关键财务指标，进行同比环比分析，10分钟完成分析师一天的工作。</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Python</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">LangChain</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">RAG</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://your-report-agent.streamlit.app" target="_blank" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                                在线演示 <i class="fa fa-external-link ml-2"></i>
+                            </a>
+                            <a href="https://github.com/yourusername/report-agent" target="_blank" class="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                                查看代码 <i class="fa fa-github ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目三：投研工作流自动化工具箱 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md card-hover">
+                    <div class="h-48 bg-gradient-to-r from-green-500 to-teal-600 flex items-center justify-center">
+                        <i class="fa fa-wrench text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">投研工作流自动化工具箱</h3>
+                        <p class="text-gray-600 mb-4">针对投研高频重复任务开发的自动化工具集，包含财报下载、数据整理、指标计算等功能，效率提升80%以上。</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Python</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm">Pandas</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Requests</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/yourusername/research-toolkit" target="_blank" class="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                                查看代码 <i class="fa fa-github ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目四：Agent效果评测平台 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md card-hover">
+                    <div class="h-48 bg-gradient-to-r from-orange-500 to-red-600 flex items-center justify-center">
+                        <i class="fa fa-bar-chart text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Agent效果评测平台</h3>
+                        <p class="text-gray-600 mb-4">金融场景AI应用效果评测工具，支持多模型、多Prompt批量对比测试，自动生成可视化评测报告。</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Python</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Streamlit</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">OpenAI API</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://your-eval-platform.streamlit.app" target="_blank" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                                在线演示 <i class="fa fa-external-link ml-2"></i>
+                            </a>
+                            <a href="https://github.com/yourusername/agent-eval-platform" target="_blank" class="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                                查看代码 <i class="fa fa-github ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心能力 -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">核心能力</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="text-center p-6 rounded-xl bg-gray-50 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-university text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">金融业务理解</h3>
+                    <p class="text-gray-600">熟悉券商投研业务流程，具备财务建模与行业研究基础，了解金融数据生态</p>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-gray-50 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-magic text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Vibe Coding</h3>
+                    <p class="text-gray-600">熟练使用AI辅助工具快速开发轻量应用，代码简洁高效，3天完成从0到1落地</p>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-gray-50 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-lightbulb-o text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Agent开发能力</h3>
+                    <p class="text-gray-600">精通RAG技术、工作流编排、多Agent协作，具备完整的LLM应用开发经验</p>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-gray-50 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">数据分析能力</h3>
+                    <p class="text-gray-600">熟练使用Python/SQL进行数据清洗、分析与可视化，能够独立完成数据任务</p>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-gray-50 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-check-square-o text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">效果评测能力</h3>
+                    <p class="text-gray-600">能够设计并执行金融场景下的Agent与模型评测体系，用数据驱动产品优化</p>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-gray-50 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-users text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">跨团队协作</h3>
+                    <p class="text-gray-600">能够快速理解技术与业务的交叉需求，与工程师、数据分析师高效协作</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我 -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">联系我</h2>
+            <p class="text-xl text-gray-600 mb-3 max-w-2xl mx-auto">
+                邮箱：amy00700@163.com
+            </p>
+            <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+                电话：13770089980
+            </p>
+            <div class="flex justify-center space-x-8 mb-10">
+                <a href="mailto:amy00700@163.com" class="text-gray-600 hover:text-primary transition-colors">
+                    <i class="fa fa-envelope text-3xl"></i>
+                </a>
+                <a href="https://github.com/yourusername" target="_blank" class="text-gray-600 hover:text-primary transition-colors">
+                    <i class="fa fa-github text-3xl"></i>
+                </a>
+            </div>
+            <p class="text-gray-500">
+                © 2026 袁静雯 | 用Vibe Coding创造价值
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 点击移动端菜单链接后关闭菜单
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 滚动时导航栏阴影效果
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent效果评测平台 | Vibe Coding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Agent效果评测平台</h1>
+            <a href="index.html" class="text-blue-600 hover:text-blue-800 transition-colors">
+                <i class="fa fa-arrow-left mr-2"></i> 返回作品集
+            </a>
+        </div>
+        
+        <p class="text-lg text-gray-600 mb-8 text-center">
+            金融场景AI应用效果评测工具，用数据驱动产品优化
+        </p>
+        
+        <!-- 评测概览 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="card bg-white rounded-xl p-6 shadow-md text-center">
+                <h3 class="text-lg font-semibold mb-2 text-gray-600">测试用例总数</h3>
+                <div class="text-3xl font-bold text-blue-600">128</div>
+            </div>
+            
+            <div class="card bg-white rounded-xl p-6 shadow-md text-center">
+                <h3 class="text-lg font-semibold mb-2 text-gray-600">整体准确率</h3>
+                <div class="text-3xl font-bold text-green-600">89.06%</div>
+            </div>
+            
+            <div class="card bg-white rounded-xl p-6 shadow-md text-center">
+                <h3 class="text-lg font-semibold mb-2 text-gray-600">平均响应时间</h3>
+                <div class="text-3xl font-bold text-orange-600">2.34s</div>
+            </div>
+            
+            <div class="card bg-white rounded-xl p-6 shadow-md text-center">
+                <h3 class="text-lg font-semibold mb-2 text-gray-600">评测版本</h3>
+                <div class="text-3xl font-bold text-purple-600">v2.1</div>
+            </div>
+        </div>
+        
+        <!-- 图表区域 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-4 text-gray-600">多模型准确率对比</h3>
+                <div id="model-compare-chart" style="height: 300px;"></div>
+            </div>
+            
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-4 text-gray-600">不同任务类型准确率</h3>
+                <div id="task-type-chart" style="height: 300px;"></div>
+            </div>
+        </div>
+        
+        <!-- 错误案例分析 -->
+        <div class="card bg-white rounded-xl p-6 shadow-md mb-8">
+            <h3 class="text-lg font-semibold mb-4 text-gray-600">典型错误案例分析</h3>
+            
+            <div class="space-y-4">
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+                    <h4 class="font-semibold text-red-800 mb-2">错误类型：财务指标计算错误</h4>
+                    <p class="text-gray-700 mb-2"><strong>问题：</strong>将"扣非净利润"错误识别为"净利润"</p>
+                    <p class="text-gray-700"><strong>解决方案：</strong>优化Prompt，明确要求区分不同类型的净利润指标</p>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+                    <h4 class="font-semibold text-yellow-800 mb-2">错误类型：表格解析错误</h4>
+                    <p class="text-gray-700 mb-2"><strong>问题：</strong>复杂合并单元格表格解析时出现数据错位</p>
+                    <p class="text-gray-700"><strong>解决方案：</strong>更换更先进的PDF表格解析工具，增加数据校验逻辑</p>
+                </div>
+                
+                <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                    <h4 class="font-semibold text-orange-800 mb-2">错误类型：上下文理解错误</h4>
+                    <p class="text-gray-700 mb-2"><strong>问题：</strong>无法正确理解跨段落的上下文信息</p>
+                    <p class="text-gray-700"><strong>解决方案：</strong>优化RAG检索策略，增加上下文窗口大小</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md mb-8">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">技术实现</h3>
+            <div class="flex flex-wrap gap-3">
+                <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Python</span>
+                <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Streamlit</span>
+                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">OpenAI API</span>
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Pandas</span>
+                <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Matplotlib</span>
+            </div>
+        </div>
+        
+        <div class="text-center text-gray-500">
+            <p>支持批量导入测试用例，自动生成可视化评测报告，保存历史版本对比</p>
+        </div>
+    </div>
+
+    <script>
+        // 多模型准确率对比
+        const modelCompareChart = echarts.init(document.getElementById('model-compare-chart'));
+        modelCompareChart.setOption({
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                data: ['GPT-4o', 'GPT-4', 'GPT-3.5', 'Claude 3 Opus', 'Claude 3 Sonnet']
+            },
+            yAxis: { type: 'value', min: 0, max: 100, name: '准确率(%)' },
+            series: [{
+                data: [89.06, 85.16, 76.56, 87.50, 82.81],
+                type: 'bar',
+                itemStyle: {
+                    color: function(params) {
+                        const colors = ['#3b82f6', '#60a5fa', '#93c5fd', '#8b5cf6', '#a78bfa'];
+                        return colors[params.dataIndex];
+                    }
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}%'
+                }
+            }]
+        });
+
+        // 不同任务类型准确率
+        const taskTypeChart = echarts.init(document.getElementById('task-type-chart'));
+        taskTypeChart.setOption({
+            tooltip: { trigger: 'item' },
+            legend: { bottom: '0%' },
+            series: [{
+                name: '准确率',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: false,
+                label: { show: false },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '16',
+                        fontWeight: 'bold'
+                    }
+                },
+                data: [
+                    { value: 95, name: '指标提取' },
+                    { value: 88, name: '同比分析' },
+                    { value: 82, name: '风险识别' },
+                    { value: 76, name: '自然语言问答' }
+                ]
+            }]
+        });
+
+        // 响应式
+        window.addEventListener('resize', () => {
+            modelCompareChart.resize();
+            taskTypeChart.resize();
+        });
+    </script>
+</body>
+</html>

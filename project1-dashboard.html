@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融市场情绪仪表盘 | Vibe Coding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .up { color: #ef4444; }
+        .down { color: #10b981; }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">金融市场情绪仪表盘</h1>
+            <a href="index.html" class="text-blue-600 hover:text-blue-800 transition-colors">
+                <i class="fa fa-arrow-left mr-2"></i> 返回作品集
+            </a>
+        </div>
+        
+        <!-- 大盘概览 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-2 text-gray-600">沪深300</h3>
+                <div class="text-3xl font-bold up">3,892.45</div>
+                <div class="text-lg up">+1.25% (+48.12)</div>
+            </div>
+            
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-2 text-gray-600">上证指数</h3>
+                <div class="text-3xl font-bold up">3,156.78</div>
+                <div class="text-lg up">+0.98% (+30.56)</div>
+            </div>
+            
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-2 text-gray-600">深证成指</h3>
+                <div class="text-3xl font-bold down">10,234.56</div>
+                <div class="text-lg down">-0.32% (-32.78)</div>
+            </div>
+        </div>
+        
+        <!-- 图表区域 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-4 text-gray-600">沪深300走势</h3>
+                <div id="index-chart" style="height: 300px;"></div>
+            </div>
+            
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-4 text-gray-600">行业涨跌热力图</h3>
+                <div id="heatmap-chart" style="height: 300px;"></div>
+            </div>
+        </div>
+        
+        <!-- 北向资金与市场情绪 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-4 text-gray-600">北向资金流向</h3>
+                <div id="northbound-chart" style="height: 300px;"></div>
+            </div>
+            
+            <div class="card bg-white rounded-xl p-6 shadow-md">
+                <h3 class="text-lg font-semibold mb-4 text-gray-600">市场情绪指数</h3>
+                <div id="sentiment-chart" style="height: 300px;"></div>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center text-gray-500">
+            <p>数据更新时间：2026-06-01 15:00:00 | 数据来源：新浪财经</p>
+        </div>
+    </div>
+
+    <script>
+        // 沪深300走势
+        const indexChart = echarts.init(document.getElementById('index-chart'));
+        indexChart.setOption({
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                data: ['09:30', '10:00', '10:30', '11:00', '11:30', '13:30', '14:00', '14:30', '15:00']
+            },
+            yAxis: { type: 'value' },
+            series: [{
+                data: [3844.33, 3856.78, 3862.45, 3871.23, 3868.90, 3875.67, 3882.34, 3889.12, 3892.45],
+                type: 'line',
+                smooth: true,
+                lineStyle: { color: '#ef4444', width: 2 },
+                areaStyle: { color: 'rgba(239, 68, 68, 0.1)' }
+            }]
+        });
+
+        // 行业涨跌热力图
+        const heatmapChart = echarts.init(document.getElementById('heatmap-chart'));
+        heatmapChart.setOption({
+            tooltip: { formatter: '{b}: {c}%' },
+            visualMap: {
+                min: -3,
+                max: 3,
+                calculable: true,
+                orient: 'horizontal',
+                left: 'center',
+                bottom: '0%',
+                inRange: { color: ['#10b981', '#ffffff', '#ef4444'] }
+            },
+            grid: { top: '10%', bottom: '15%' },
+            xAxis: { type: 'category', data: ['金融', '科技', '消费', '医药', '能源', '地产', '军工', '汽车'] },
+            yAxis: { type: 'category', data: [''] },
+            series: [{
+                type: 'heatmap',
+                data: [
+                    [0, 0, 2.1], [1, 0, 1.8], [2, 0, 0.5], [3, 0, -0.8],
+                    [4, 0, 1.2], [5, 0, -1.5], [6, 0, 0.9], [7, 0, 0.3]
+                ],
+                label: { show: true, formatter: '{c}%' }
+            }]
+        });
+
+        // 北向资金流向
+        const northboundChart = echarts.init(document.getElementById('northbound-chart'));
+        northboundChart.setOption({
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                data: ['09:30', '10:00', '10:30', '11:00', '11:30', '13:30', '14:00', '14:30', '15:00']
+            },
+            yAxis: { type: 'value', name: '亿元' },
+            series: [{
+                data: [5.2, 12.8, 21.5, 28.9, 32.4, 38.7, 45.2, 52.6, 58.3],
+                type: 'line',
+                smooth: true,
+                lineStyle: { color: '#8b5cf6', width: 2 },
+                areaStyle: { color: 'rgba(139, 92, 246, 0.1)' }
+            }]
+        });
+
+        // 市场情绪指数
+        const sentimentChart = echarts.init(document.getElementById('sentiment-chart'));
+        sentimentChart.setOption({
+            tooltip: { trigger: 'item' },
+            series: [{
+                type: 'gauge',
+                startAngle: 180,
+                endAngle: 0,
+                min: 0,
+                max: 100,
+                splitNumber: 5,
+                axisLine: {
+                    lineStyle: {
+                        width: 20,
+                        color: [
+                            [0.2, '#10b981'],
+                            [0.4, '#34d399'],
+                            [0.6, '#fbbf24'],
+                            [0.8, '#f97316'],
+                            [1, '#ef4444']
+                        ]
+                    }
+                },
+                pointer: { width: 5 },
+                axisTick: { distance: -20, length: 8 },
+                splitLine: { distance: -25, length: 15 },
+                axisLabel: { distance: -30, fontSize: 12 },
+                detail: { fontSize: 24, offsetCenter: [0, '60%'] },
+                data: [{ value: 62, name: '市场情绪' }]
+            }]
+        });
+
+        // 响应式
+        window.addEventListener('resize', () => {
+            indexChart.resize();
+            heatmapChart.resize();
+            northboundChart.resize();
+            sentimentChart.resize();
+        });
+    </script>
+</body>
+</html>
