@@ -3,8 +3,16 @@ import PyPDF2
 import os
 from openai import OpenAI
 
+# 从 Streamlit Secrets 读取 API Key（部署到 Cloud 时使用）
+# 本地调试时，如果没有 st.secrets，可以回退到环境变量
+api_key = st.secrets.get("DEEPSEEK_API_KEY", os.getenv("DEEPSEEK_API_KEY"))
+
+if not api_key:
+    st.error("❌ 未找到 DEEPSEEK_API_KEY，请在 Streamlit Secrets 或环境变量中配置")
+    st.stop()
+
 client = OpenAI(
-    api_key="sk-6e5b1dbc4d4c4a7c808da68b1bb8bf74",
+    api_key=api_key,
     base_url="https://api.deepseek.com/v1"
 )
 
